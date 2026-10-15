@@ -28,52 +28,68 @@
       "as": "direction"
     }
   ],
-  "mark": "bar",
-  "encoding": {
-    "y": {
-      "field": "program_type",
-      "type": "nominal",
-      "sort": {
-        "field": "change_percent_2024_to_2025",
-        "order": "descending"
-      },
-      "title": null
-    },
-    "x": {
-      "field": "change_percent_2024_to_2025",
-      "type": "quantitative",
-      "title": "Change from 2024 to 2025 (%)"
-    },
-    "color": {
-      "field": "direction",
-      "type": "nominal",
-      "title": "Change",
-      "legend": {
-        "orient": "top"
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "program_type",
+          "type": "nominal",
+          "sort": {
+            "field": "change_percent_2024_to_2025",
+            "order": "descending"
+          },
+          "title": null
+        },
+        "x": {
+          "field": "change_percent_2024_to_2025",
+          "type": "quantitative",
+          "title": "Change from 2024 to 2025 (%)"
+        },
+        "color": {
+          "field": "direction",
+          "type": "nominal",
+          "title": "Change",
+          "legend": {
+            "orient": "top"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "program_type",
+            "type": "nominal",
+            "title": "Program"
+          },
+          {
+            "field": "sessions_2024",
+            "type": "quantitative",
+            "title": "Sessions in 2024"
+          },
+          {
+            "field": "sessions_2025",
+            "type": "quantitative",
+            "title": "Sessions in 2025"
+          },
+          {
+            "field": "change_percent_2024_to_2025",
+            "type": "quantitative",
+            "title": "Change (%)",
+            "format": ".1f"
+          }
+        ]
       }
     },
-    "tooltip": [
-      {
-        "field": "program_type",
-        "type": "nominal",
-        "title": "Program"
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#333333",
+        "strokeWidth": 1.5
       },
-      {
-        "field": "sessions_2024",
-        "type": "quantitative",
-        "title": "Sessions in 2024"
-      },
-      {
-        "field": "sessions_2025",
-        "type": "quantitative",
-        "title": "Sessions in 2025"
-      },
-      {
-        "field": "change_percent_2024_to_2025",
-        "type": "quantitative",
-        "title": "Change (%)",
-        "format": ".1f"
+      "encoding": {
+        "x": {
+          "datum": 0
+        }
       }
-    ]
-  }
+    }
+  ]
 }
