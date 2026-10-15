@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
-  "height": 420,
+  "width": 600,
+  "height": 320,
   "data": {
     "url": "data/victoria_program_sessions_2024_2025.csv"
   },

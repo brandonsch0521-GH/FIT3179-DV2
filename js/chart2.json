@@ -1,0 +1,115 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 420,
+  "data": {
+    "url": "data/victoria_program_sessions_2024_2025.csv"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "sessions_2025",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 15"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "program_type",
+          "type": "nominal",
+          "sort": {
+            "field": "sessions_2025",
+            "order": "descending"
+          },
+          "title": null
+        },
+        "x": {
+          "field": "sessions_2024",
+          "type": "quantitative",
+          "title": "Number of Sessions"
+        },
+        "x2": {
+          "field": "sessions_2025"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "fold": [
+            "sessions_2024",
+            "sessions_2025"
+          ],
+          "as": [
+            "year",
+            "sessions"
+          ]
+        },
+        {
+          "calculate": "datum.year == 'sessions_2024' ? '2024' : '2025'",
+          "as": "year_label"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 110
+      },
+      "encoding": {
+        "y": {
+          "field": "program_type",
+          "type": "nominal",
+          "sort": {
+            "field": "sessions_2025",
+            "order": "descending"
+          },
+          "title": null
+        },
+        "x": {
+          "field": "sessions",
+          "type": "quantitative",
+          "title": "Number of Sessions"
+        },
+        "color": {
+          "field": "year_label",
+          "type": "nominal",
+          "title": "Year"
+        },
+        "tooltip": [
+          {
+            "field": "program_type",
+            "type": "nominal",
+            "title": "Program"
+          },
+          {
+            "field": "year_label",
+            "type": "nominal",
+            "title": "Year"
+          },
+          {
+            "field": "sessions",
+            "type": "quantitative",
+            "title": "Sessions"
+          }
+        ]
+      }
+    }
+  ]
+}
