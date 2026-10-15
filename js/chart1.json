@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 420,
+  "data": {
+    "url": "data/victoria_program_sessions_2024_2025.csv"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "sessions_2025",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 15"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "program_type",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null
+    },
+    "x": {
+      "field": "sessions_2025",
+      "type": "quantitative",
+      "title": "Number of Sessions in 2025"
+    },
+    "tooltip": [
+      {
+        "field": "program_type",
+        "type": "nominal",
+        "title": "Program"
+      },
+      {
+        "field": "sessions_2025",
+        "type": "quantitative",
+        "title": "Sessions"
+      }
+    ]
+  }
+}
