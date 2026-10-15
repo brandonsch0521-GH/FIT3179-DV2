@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 420,
+  "data": {
+    "url": "data/victoria_program_sessions_2024_2025.csv"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "sessions_2025",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 15"
+    },
+    {
+      "calculate": "datum.change_percent_2024_to_2025 >= 0 ? 'Growing' : 'Shrinking'",
+      "as": "direction"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "program_type",
+      "type": "nominal",
+      "sort": {
+        "field": "change_percent_2024_to_2025",
+        "order": "descending"
+      },
+      "title": null
+    },
+    "x": {
+      "field": "change_percent_2024_to_2025",
+      "type": "quantitative",
+      "title": "Change from 2024 to 2025 (%)"
+    },
+    "color": {
+      "field": "direction",
+      "type": "nominal",
+      "title": "Change",
+      "legend": {
+        "orient": "top"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "program_type",
+        "type": "nominal",
+        "title": "Program"
+      },
+      {
+        "field": "sessions_2024",
+        "type": "quantitative",
+        "title": "Sessions in 2024"
+      },
+      {
+        "field": "sessions_2025",
+        "type": "quantitative",
+        "title": "Sessions in 2025"
+      },
+      {
+        "field": "change_percent_2024_to_2025",
+        "type": "quantitative",
+        "title": "Change (%)",
+        "format": ".1f"
+      }
+    ]
+  }
+}
