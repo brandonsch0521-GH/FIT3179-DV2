@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css%20stylesheets/style.css" />
 
     <title>Community Centres in Australia</title>
 
@@ -33,17 +34,53 @@
       Beyond Programs: What Services Do Victoria’s Neighbourhood Houses Provide?
     </h2>
 
-    <div id="chart4"></div>
+    <section class="chart-section">
+      <div id="chart4"></div>
+    </section>
 
-    <h2>Where Are Queensland’s Neighbourhood Centres?</h2>
+    <section class="chart-section">
+      <h2>Where Are Queensland’s Neighbourhood Centres?</h2>
 
-    <div id="chart5"></div>
+      <p class="chart-description">
+        Geographic locations of 130 neighbourhood centres listed in Queensland's
+        2019 dataset.
+      </p>
+
+      <div id="chart5"></div>
+
+      <p class="chart-insight">
+        Centres in this dataset are concentrated along Queensland's eastern
+        coast, particularly around Southeast Queensland, with fewer recorded
+        locations inland.
+      </p>
+    </section>
+
+    <section class="chart-section">
+      <h2>
+        How Has Participation in Queensland's Neighbourhood Centres Changed Over
+        Time?
+      </h2>
+
+      <p class="chart-description">
+        Weekly attendance, programmed activity participation, and service
+        referrals from 2019 to 2025.
+      </p>
+
+      <div id="chart6"></div>
+
+      <p class="chart-insight">
+        Weekly centre attendance increased from 35,245 in 2019 to 53,230 in
+        2025, highlighting the growing reach of Queensland's neighbourhood
+        centres.
+      </p>
+    </section>
     <script>
       vegaEmbed("#chart1", "js/chart1.json");
       vegaEmbed("#chart2", "js/chart2.json");
       vegaEmbed("#chart3", "js/chart3.json");
       vegaEmbed("#chart4", "js/chart4.json");
       vegaEmbed("#chart5", "js/chart5.json");
+      vegaEmbed("#chart6", "js/chart6.json");
     </script>
   </body>
 </html>

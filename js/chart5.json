@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 650,
+  "height": 620,
+  "projection": {
+    "type": "mercator",
+    "center": [
+      145,
+      -21
+    ],
+    "scale": 900
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eeeeee",
+        "stroke": "#999999",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/queensland_neighbourhood_centres.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "Latitude": "number",
+            "Longitude": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "size": 45,
+        "color": "#3274A8",
+        "opacity": 0.7,
+        "stroke": "white",
+        "strokeWidth": 0.6
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "Title",
+            "type": "nominal",
+            "title": "Centre"
+          },
+          {
+            "field": "Address",
+            "type": "nominal",
+            "title": "Address"
+          },
+          {
+            "field": "Suburb",
+            "type": "nominal",
+            "title": "Suburb"
+          },
+          {
+            "field": "Postcode",
+            "type": "nominal",
+            "title": "Postcode"
+          }
+        ]
+      }
+    }
+  ]
+}
