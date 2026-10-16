@@ -1,0 +1,133 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 740,
+  "height": 390,
+  "data": {
+    "url": "data/queensland_weekly_participation_2019_2025.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "participants_attending_centres_weekly",
+        "participants_in_programmed_activities_weekly",
+        "participant_referrals_to_other_services_weekly"
+      ],
+      "as": [
+        "measure",
+        "participants"
+      ]
+    },
+    {
+      "filter": "datum.participants != null && datum.participants !== ''"
+    },
+    {
+      "calculate": "datum.measure === 'participants_attending_centres_weekly' ? 'Centre attendance' : datum.measure === 'participants_in_programmed_activities_weekly' ? 'Programmed activities' : 'Service referrals'",
+      "as": "indicator"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "financial_year",
+      "type": "quantitative",
+      "title": "Year",
+      "scale": {
+        "domain": [
+          2019,
+          2025
+        ]
+      },
+      "axis": {
+        "values": [
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "format": "d",
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "participants",
+      "type": "quantitative",
+      "title": "People per week",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",d"
+      }
+    },
+    "color": {
+      "field": "indicator",
+      "type": "nominal",
+      "title": "Measure",
+      "scale": {
+        "domain": [
+          "Centre attendance",
+          "Programmed activities",
+          "Service referrals"
+        ],
+        "range": [
+          "#276B9A",
+          "#E69F00",
+          "#5E9F76"
+        ]
+      },
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "financial_year",
+        "type": "quantitative",
+        "title": "Year",
+        "format": "d"
+      },
+      {
+        "field": "indicator",
+        "type": "nominal",
+        "title": "Measure"
+      },
+      {
+        "field": "participants",
+        "type": "quantitative",
+        "title": "Weekly count",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "point": false
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 85,
+        "stroke": "white",
+        "strokeWidth": 1
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "gridColor": "#E5E9EC",
+      "labelColor": "#445764",
+      "titleColor": "#263238"
+    }
+  }
+}
