@@ -1,0 +1,144 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 520,
+  "projection": {
+    "type": "mercator",
+    "center": [
+      134,
+      -28
+    ],
+    "scale": 520
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eeeeee",
+        "stroke": "#999999",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/australia_neighbourhood_centres_state_map_2025.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "Latitude": "number",
+            "Longitude": "number",
+            "funded_centres_per_100000_people": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "color": "#3274A8",
+        "opacity": 0.7,
+        "stroke": "white",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "funded_centres_per_100000_people",
+          "type": "quantitative",
+          "title": "Funded centres per 100,000",
+          "scale": {
+            "range": [
+              300,
+              2800
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "format": ".2f"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "funded_centres_per_100000_people",
+            "type": "quantitative",
+            "title": "Funded centres per 100,000 people",
+            "format": ".2f"
+          },
+          {
+            "field": "marker_city",
+            "type": "nominal",
+            "title": "Marker city"
+          },
+          {
+            "field": "location_represents",
+            "type": "nominal",
+            "title": "Location note"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/australia_neighbourhood_centres_state_map_2025.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "Latitude": "number",
+            "Longitude": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "dy": -8,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#263238"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "state",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
+    }
+  }
+}
