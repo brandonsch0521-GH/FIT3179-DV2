@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 510,
+  "projection": {
+    "type": "mercator",
+    "center": [
+      134,
+      -28
+    ],
+    "scale": 520
+  },
+  "data": {
+    "url": "data/australian_states_rates.topojson",
+    "format": {
+      "type": "topojson",
+      "feature": "states"
+    }
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "#ffffff",
+    "strokeWidth": 1.1
+  },
+  "encoding": {
+    "color": {
+      "condition": {
+        "test": "datum.properties.rate == null",
+        "value": "#dadfe3"
+      },
+      "field": "properties.rate",
+      "type": "quantitative",
+      "title": "Centres per 100,000 people",
+      "scale": {
+        "scheme": "blues",
+        "domain": [
+          2,
+          6.1
+        ]
+      },
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal",
+        "format": ".1f"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "properties.STATE_NAME",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "properties.rate",
+        "type": "quantitative",
+        "title": "Funded centres per 100,000",
+        "format": ".2f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

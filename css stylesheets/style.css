@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px;
+  color: #263238;
+}
+
+.chart-section {
+  margin-top: 60px;
+  margin-bottom: 70px;
+}
+
+.chart-section h2 {
+  font-size: 25px;
+  margin-bottom: 12px;
+}
+
+.chart-description {
+  color: #607d8b;
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.chart-insight {
+  max-width: 750px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #455a64;
+  margin-top: 20px;
+}
+
+#chart5 {
+  width: 100%;
+  overflow-x: auto;
+}
