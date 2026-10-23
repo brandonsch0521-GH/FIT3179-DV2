@@ -1,0 +1,29 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 400,
+  "data": {
+    "url": "data/queensland_emergency_relief_2019_2025.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"fold": ["centres_providing_food_relief_percent", "centres_providing_nonfood_material_relief_percent"], "as": ["relief_type", "percentage"]},
+    {"calculate": "datum.relief_type === 'centres_providing_food_relief_percent' ? 'Food relief' : 'Non-food material relief'", "as": "measure"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "line", "strokeWidth": 3, "point": {"filled": true, "size": 90}},
+      "encoding": {
+        "x": {"field": "financial_year", "type": "quantitative", "title": "Year", "scale": {"domain": [2019, 2025]}, "axis": {"values": [2019, 2020, 2021, 2022, 2023, 2024, 2025], "format": "d", "labelAngle": 0}},
+        "y": {"field": "percentage", "type": "quantitative", "title": "Centres providing relief (%)", "scale": {"domain": [0, 100]}},
+        "color": {"field": "measure", "type": "nominal", "title": "Relief type", "scale": {"domain": ["Food relief", "Non-food material relief"], "range": ["#3274A8", "#E49A2B"]}, "legend": {"orient": "bottom"}},
+        "tooltip": [
+          {"field": "financial_year", "type": "quantitative", "title": "Year", "format": "d"},
+          {"field": "measure", "type": "nominal", "title": "Relief type"},
+          {"field": "percentage", "type": "quantitative", "title": "Centres providing relief (%)", "format": ".0f"}
+        ]
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "axis": {"labelFontSize": 12, "titleFontSize": 13}, "legend": {"labelFontSize": 12, "titleFontSize": 12}}
+}

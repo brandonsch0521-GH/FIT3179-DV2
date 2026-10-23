@@ -8,6 +8,8 @@
     <title>Community Centres in Australia</title>
 
     <!-- Vega libraries -->
+    <!-- can just AI to help design -->
+    <!--  -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -68,6 +70,7 @@
 
       <div id="chart6"></div>
 
+      <!-- This tells about the chart  -->
       <p class="chart-insight">
         Weekly centre attendance increased from 35,245 in 2019 to 53,230 in
         2025, highlighting the growing reach of Queensland's neighbourhood
@@ -97,25 +100,41 @@
     </section>
 
     <section class="chart-section">
-      <h2>
-        How Does Neighbourhood Centre Availability Vary Across Australian
-        States?
-      </h2>
+      <h2>Where Are Queensland's Neighbourhood Centre Hotspots?</h2>
 
       <p class="chart-description">
-        Funded neighbourhood centres per 100,000 residents across five
-        Australian states in 2025. Darker shades indicate higher availability.
+        Geographic concentration of 130 neighbourhood centres recorded across
+        Queensland in 2019. Warmer colours indicate areas with higher
+        concentrations of nearby centres.
       </p>
 
       <div id="chart8"></div>
 
       <p class="chart-insight">
-        Tasmania recorded the highest rate at 6.09 funded centres per 100,000
-        people, followed by Victoria at 5.73. Queensland had the lowest reported
-        rate at 2.29. Grey states indicate unavailable data, not zero funded
-        centres.
+        This heatmap highlights areas where recorded neighbourhood centres are
+        geographically clustered. Density is estimated using spatial smoothing
+        and does not represent population-adjusted accessibility.
       </p>
     </section>
+
+    <section class="chart-section">
+      <h2>How Has Emergency Relief Provision Changed in Queensland?</h2>
+
+      <p class="chart-description">
+        Percentage of Queensland neighbourhood centres providing food relief and
+        non-food material relief between 2019 and 2025.
+      </p>
+
+      <div id="chart9"></div>
+
+      <p class="chart-insight">
+        Food relief provision increased from 68% of centres in 2019 to 87% in
+        2025, while non-food material relief increased from 69% to 83%. This
+        highlights the growing proportion of centres offering emergency
+        assistance.
+      </p>
+    </section>
+
     <script>
       vegaEmbed("#chart1", "js/chart1.json");
       vegaEmbed("#chart2", "js/chart2.json");
@@ -125,6 +144,7 @@
       vegaEmbed("#chart6", "js/chart6.json");
       vegaEmbed("#chart7", "js/chart7.json");
       vegaEmbed("#chart8", "js/chart8.json");
+      vegaEmbed("#chart9", "js/chart9.json");
     </script>
   </body>
 </html>
