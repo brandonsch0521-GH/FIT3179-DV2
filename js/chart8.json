@@ -1,66 +1,115 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 700,
-  "height": 510,
+  "height": 650,
   "projection": {
     "type": "mercator",
     "center": [
-      134,
-      -28
+      145,
+      -21
     ],
-    "scale": 520
+    "scale": 900
   },
-  "data": {
-    "url": "data/australian_states_rates.topojson",
-    "format": {
-      "type": "topojson",
-      "feature": "states"
-    }
-  },
-  "mark": {
-    "type": "geoshape",
-    "stroke": "#ffffff",
-    "strokeWidth": 1.1
-  },
-  "encoding": {
-    "color": {
-      "condition": {
-        "test": "datum.properties.rate == null",
-        "value": "#dadfe3"
+  "layer": [
+    {
+      "data": {
+        "url": "data/queensland_outline.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
       },
-      "field": "properties.rate",
-      "type": "quantitative",
-      "title": "Centres per 100,000 people",
-      "scale": {
-        "scheme": "blues",
-        "domain": [
-          2,
-          6.1
-        ]
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f0f2f3",
+        "stroke": "#7d8b95",
+        "strokeWidth": 0.8
       },
-      "legend": {
-        "orient": "bottom",
-        "direction": "horizontal",
-        "format": ".1f"
+      "encoding": {
+        "shape": {
+          "field": "geometry",
+          "type": "geojson"
+        }
       }
     },
-    "tooltip": [
-      {
-        "field": "properties.STATE_NAME",
-        "type": "nominal",
-        "title": "State"
+    {
+      "data": {
+        "url": "data/queensland_centre_density_2019.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
       },
-      {
-        "field": "properties.rate",
-        "type": "quantitative",
-        "title": "Funded centres per 100,000",
-        "format": ".2f"
+      "mark": {
+        "type": "geoshape",
+        "stroke": null,
+        "opacity": 0.9
+      },
+      "encoding": {
+        "shape": {
+          "field": "geometry",
+          "type": "geojson"
+        },
+        "color": {
+          "field": "properties.density_index",
+          "type": "quantitative",
+          "title": "Relative centre density (0\u2013100)",
+          "scale": {
+            "type": "sqrt",
+            "domain": [
+              0,
+              100
+            ],
+            "scheme": "yelloworangered"
+          },
+          "legend": {
+            "orient": "bottom",
+            "gradientLength": 300
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.density_index",
+            "type": "quantitative",
+            "title": "Relative density index",
+            "format": ".1f"
+          },
+          {
+            "value": "Smoothed centre concentration; not a centre count or population rate",
+            "title": "Meaning"
+          }
+        ]
       }
-    ]
-  },
+    },
+    {
+      "data": {
+        "url": "data/queensland_outline.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#637582",
+        "strokeWidth": 1.1
+      },
+      "encoding": {
+        "shape": {
+          "field": "geometry",
+          "type": "geojson"
+        }
+      }
+    }
+  ],
   "config": {
     "view": {
       "stroke": null
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
     }
   }
 }
