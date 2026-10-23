@@ -1,0 +1,177 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Indexed dumbbell comparison of total volunteering in Victorian neighbourhood houses, 2024\u20132025. 2024 is set to 100 separately for each metric.",
+  "width": 680,
+  "height": 170,
+  "data": {
+    "url": "data/victoria_volunteering_2024_2025.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "total_2024": "number",
+        "total_2025": "number",
+        "median_2024": "number",
+        "median_2025": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.measure == \"Total number of volunteers\" ? \"Total volunteers\" : \"Volunteer hours per week\"",
+      "as": "metric"
+    },
+    {
+      "calculate": "100 * datum.total_2025 / datum.total_2024",
+      "as": "index_2025"
+    },
+    {
+      "calculate": "100",
+      "as": "index_2024"
+    },
+    {
+      "calculate": "(datum.total_2025 / datum.total_2024 - 1) * 100",
+      "as": "change_pct"
+    },
+    {
+      "calculate": "format(datum.change_pct, \"+.1f\") + \"%\"",
+      "as": "change_label"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "metric",
+      "type": "nominal",
+      "sort": [
+        "Total volunteers",
+        "Volunteer hours per week"
+      ],
+      "title": null,
+      "axis": {
+        "labelLimit": 240,
+        "labelFontSize": 13,
+        "labelPadding": 12
+      }
+    },
+    "tooltip": [
+      {
+        "field": "metric",
+        "type": "nominal",
+        "title": "Measure"
+      },
+      {
+        "field": "total_2024",
+        "type": "quantitative",
+        "title": "2024 total",
+        "format": ",.0f"
+      },
+      {
+        "field": "total_2025",
+        "type": "quantitative",
+        "title": "2025 total",
+        "format": ",.0f"
+      },
+      {
+        "field": "change_pct",
+        "type": "quantitative",
+        "title": "Change (%)",
+        "format": "+.1f"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "#a2b8c9",
+        "strokeWidth": 5
+      },
+      "encoding": {
+        "x": {
+          "field": "index_2024",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              96,
+              118
+            ]
+          },
+          "axis": {
+            "title": "Indexed total (2024 = 100)",
+            "values": [
+              100,
+              105,
+              110,
+              115
+            ],
+            "grid": true
+          }
+        },
+        "x2": {
+          "field": "index_2025"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 180,
+        "color": "#7c8997",
+        "stroke": "white",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "x": {
+          "field": "index_2024",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 200,
+        "color": "#246f9c",
+        "stroke": "white",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "x": {
+          "field": "index_2025",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "#246f9c"
+      },
+      "encoding": {
+        "x": {
+          "field": "index_2025",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "change_label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "background": "white"
+  }
+}
