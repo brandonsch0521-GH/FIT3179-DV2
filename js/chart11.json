@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 680,
+  "height": 310,
+  "data": {
+    "url": "data/queensland_median_weekly_visitors_by_community_type_2025.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "median_weekly_visitors_per_centre": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.community_type === 'Metropolitan, population above 10,000' ? 'Metropolitan (>10,000)' : datum.community_type === 'Regional, population above 10,000' ? 'Regional (>10,000)' : datum.community_type === 'Population between 3,000 and 10,000' ? 'Population 3,000–10,000' : 'Population <3,000'",
+      "as": "community_label"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "community_label",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "median_weekly_visitors_per_centre",
+        "order": "descending"
+      },
+      "axis": {
+        "labelFontSize": 13,
+        "labelLimit": 210,
+        "labelPadding": 12,
+        "ticks": false,
+        "domain": false
+      }
+    },
+    "x": {
+      "field": "median_weekly_visitors_per_centre",
+      "type": "quantitative",
+      "title": "Median weekly visitors per centre",
+      "scale": {
+        "domain": [
+          0,
+          380
+        ],
+        "nice": false
+      },
+      "axis": {
+        "tickCount": 6,
+        "grid": true,
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "size": 210,
+        "color": "#3274A8",
+        "opacity": 0.9
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "community_type",
+            "type": "nominal",
+            "title": "Community type"
+          },
+          {
+            "field": "median_weekly_visitors_per_centre",
+            "type": "quantitative",
+            "title": "Median weekly visitors",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 13,
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "#263238"
+      },
+      "encoding": {
+        "text": {
+          "field": "median_weekly_visitors_per_centre",
+          "type": "quantitative",
+          "format": ",.0f"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}
