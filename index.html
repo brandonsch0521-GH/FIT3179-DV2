@@ -3,212 +3,774 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#123b3c" />
+    <meta
+      name="description"
+      content="An interactive data story about neighbourhood centres in Victoria, Queensland and selected Australian states."
+    />
+    <title>Where Community Connects | Australian Neighbourhood Centres</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css%20stylesheets/style.css" />
-
-    <title>Community Centres in Australia</title>
-
-    <!-- Vega libraries -->
-    <!-- can just AI to help design -->
-    <!--  -->
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script defer src="js/site.js"></script>
   </head>
-
   <body>
-    <h1>Community Centres in Australia</h1>
-
-    <h2>What Do Victorians Use Neighbourhood Houses For?</h2>
-
-    <div id="chart1"></div>
-
-    <h2>How Has Use of Neighbourhood House Programs Changed Since 2024?</h2>
-
-    <div id="chart2"></div>
-
-    <h2>
-      Which Neighbourhood House Programs Are Growing — and Which Are Shrinking?
-    </h2>
-
-    <div id="chart3"></div>
-
-    <h2>
-      Beyond Programs: What Services Do Victoria’s Neighbourhood Houses Provide?
-    </h2>
-
-    <section class="chart-section">
-      <div id="chart4"></div>
-    </section>
-
-    <section class="chart-section">
-      <h2>Where Are Queensland’s Neighbourhood Centres?</h2>
-
-      <p class="chart-description">
-        Geographic locations of 130 neighbourhood centres listed in Queensland's
-        2019 dataset.
-      </p>
-
-      <div id="chart5"></div>
-
-      <p class="chart-insight">
-        Centres in this dataset are concentrated along Queensland's eastern
-        coast, particularly around Southeast Queensland, with fewer recorded
-        locations inland.
-      </p>
-    </section>
-
-    <section class="chart-section">
-      <h2>
-        How Has Participation in Queensland's Neighbourhood Centres Changed Over
-        Time?
-      </h2>
-
-      <p class="chart-description">
-        Weekly attendance, programmed activity participation, and service
-        referrals from 2019 to 2025.
-      </p>
-
-      <div id="chart6"></div>
-
-      <!-- This tells about the chart  -->
-      <p class="chart-insight">
-        Weekly centre attendance increased from 35,245 in 2019 to 53,230 in
-        2025, highlighting the growing reach of Queensland's neighbourhood
-        centres.
-      </p>
-    </section>
-
-    <section class="chart-section">
-      <h2>
-        How Does Neighbourhood Centre Availability Differ Across Australian
-        States?
-      </h2>
-
-      <p class="chart-description">
-        Proportional symbol map showing funded neighbourhood centres per 100,000
-        people in selected Australian states in 2025.
-      </p>
-
-      <div id="chart7"></div>
-
-      <p class="chart-insight">
-        Tasmania has the highest funded neighbourhood-centre availability per
-        100,000 residents in this dataset, while Queensland has the lowest.
-        Bubble positions use state-capital anchor locations and do not represent
-        exact neighbourhood centre locations.
-      </p>
-    </section>
-
-    <section class="chart-section">
-      <h2>Where Are Queensland's Neighbourhood Centre Hotspots?</h2>
-
-      <p class="chart-description">
-        Geographic concentration of 130 neighbourhood centres recorded across
-        Queensland in 2019. Warmer colours indicate areas with higher
-        concentrations of nearby centres.
-      </p>
-
-      <div id="chart8"></div>
-
-      <p class="chart-insight">
-        This heatmap highlights areas where recorded neighbourhood centres are
-        geographically clustered. Density is estimated using spatial smoothing
-        and does not represent population-adjusted accessibility.
-      </p>
-    </section>
-
-    <section class="chart-section">
-      <h2>How Has Emergency Relief Provision Changed in Queensland?</h2>
-
-      <p class="chart-description">
-        Percentage of Queensland neighbourhood centres providing food relief and
-        non-food material relief between 2019 and 2025.
-      </p>
-
-      <div id="chart9"></div>
-
-      <p class="chart-insight">
-        Food relief provision increased from 68% of centres in 2019 to 87% in
-        2025, while non-food material relief increased from 69% to 83%. This
-        highlights the growing proportion of centres offering emergency
-        assistance.
-      </p>
-    </section>
-
-    <section class="chart-section">
-      <h2>
-        Which Digital Inclusion Services Are Most Widely Offered in Queensland?
-      </h2>
-
-      <p class="chart-description">
-        Percentage of Queensland neighbourhood centres offering different
-        digital inclusion opportunities in 2025.
-      </p>
-
-      <div id="chart10"></div>
-
-      <p class="chart-insight">
-        Printing, copying and scanning services are the most widely available at
-        92%, followed by Wi-Fi at 82%. Advanced digital skills programs are
-        offered by only 16% of centres, suggesting a gap between basic digital
-        access and advanced digital learning opportunities.
-      </p>
-    </section>
-
-    <section class="chart-section">
-      <h2>
-        How Does Weekly Neighbourhood Centre Participation Differ Across
-        Queensland Communities?
-      </h2>
-
-      <p class="chart-description">
-        Median weekly visitors per neighbourhood centre across four community
-        types in Queensland, 2025.
-      </p>
-
-      <div id="chart11"></div>
-
-      <p class="chart-insight">
-        Metropolitan neighbourhood centres recorded the highest median weekly
-        visitation at 320 visitors, compared with 145 among centres in
-        communities with fewer than 3,000 residents. These figures describe
-        typical visitation per centre, not total visitation across each
-        community type.
-      </p>
-    </section>
-
-    <section class="chart-section">
-      <h2>How Has Volunteering Changed in Victoria's Neighbourhood Houses?</h2>
-
-      <p class="chart-description">
-        Comparison of total volunteers and weekly volunteer hours between 2024
-        and 2025. Values are indexed to 2024 = 100 to allow percentage growth
-        comparisons.
-      </p>
-
-      <div id="chart12"></div>
-
-      <p class="chart-insight">
-        Victoria's neighbourhood houses experienced an 11.6% increase in total
-        volunteers and a 9.0% increase in weekly volunteer hours between 2024
-        and 2025, highlighting increased volunteer contributions to community
-        services.
-      </p>
-    </section>
-
-    <script>
-      vegaEmbed("#chart1", "js/chart1.json");
-      vegaEmbed("#chart2", "js/chart2.json");
-      vegaEmbed("#chart3", "js/chart3.json");
-      vegaEmbed("#chart4", "js/chart4.json");
-      vegaEmbed("#chart5", "js/chart5.json");
-      vegaEmbed("#chart6", "js/chart6.json");
-      vegaEmbed("#chart7", "js/chart7.json");
-      vegaEmbed("#chart8", "js/chart8.json");
-      vegaEmbed("#chart9", "js/chart9.json");
-      vegaEmbed("#chart10", "js/chart10.json");
-      vegaEmbed("#chart11", "js/chart11.json");
-      vegaEmbed("#chart12", "js/chart12.json");
-    </script>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header" id="top">
+      <a
+        href="#top"
+        class="brand"
+        aria-label="Where Community Connects, back to top"
+        ><span class="brand-symbol" aria-hidden="true"
+          ><i></i><i></i><i></i><i></i></span
+        ><span>the community <strong>atlas.</strong></span></a
+      ><button
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="main-nav"
+        aria-label="Toggle navigation"
+      >
+        Menu <span>☰</span>
+      </button>
+      <nav id="main-nav" class="main-nav" aria-label="Main sections">
+        <a href="#services">Services</a><a href="#geography">Geography</a
+        ><a href="#participation">Participation</a><a href="#impact">Impact</a
+        ><a href="#takeaways">Takeaways</a>
+      </nav>
+      <a class="nav-cta" href="#services">Explore the data <span>↗</span></a>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <span class="hero-kicker"
+              ><span class="live-dot"></span> AN INTERACTIVE DATA STORY ·
+              AUSTRALIA</span
+            >
+            <h1>Where <em>community</em><br />connects.</h1>
+            <p class="hero-lead">
+              Behind every neighbourhood centre is a network of services, people
+              and everyday moments of support. Explore what these spaces do,
+              where they are, and why they matter.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-action" href="#services"
+                >Explore the story <span>↗</span></a
+              ><a class="secondary-action" href="#overview"
+                >See the numbers ↓</a
+              >
+            </div>
+            <p class="hero-small">
+              12 visualisations <span>·</span> Victoria &amp; Queensland
+              <span>·</span> Historical and 2025 data
+            </p>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="art-ring ring-one"></div>
+            <div class="art-ring ring-two"></div>
+            <div class="art-ring ring-three"></div>
+            <div class="art-center">
+              <span>places</span><strong>for<br />people.</strong>
+            </div>
+            <span class="art-dot dot-a"></span
+            ><span class="art-dot dot-b"></span
+            ><span class="art-dot dot-c"></span
+            ><span class="art-dot dot-d"></span>
+            <div class="art-note note-one">connection <span>↗</span></div>
+            <div class="art-note note-two">belonging <span>✳</span></div>
+          </div>
+        </div>
+        <div class="hero-bottom">
+          <span>SCROLL TO DISCOVER</span><span class="hero-rule"></span
+          ><span>01 — 04 CHAPTERS</span>
+        </div>
+      </section>
+      <section
+        class="overview"
+        id="overview"
+        aria-labelledby="overview-heading"
+      >
+        <div class="section-label">
+          THE BIG PICTURE <span>—</span> IN NUMBERS
+        </div>
+        <div class="overview-heading">
+          <h2 id="overview-heading">More than a place<br />to drop by.</h2>
+          <p>
+            A glimpse of the people, services and geographic reach behind the
+            visualisations. Different figures refer to different years and
+            populations—read each label carefully.
+          </p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-no"
+              >130<span class="tiny-decoration">↗</span></span
+            >
+            <h3>Mapped centre locations</h3>
+            <p>Queensland government directory, 2019</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-no">53,230</span>
+            <h3>Weekly visits</h3>
+            <p>Queensland neighbourhood centres, 2025</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-no">87<span class="stat-unit">%</span></span>
+            <h3>Offering food relief</h3>
+            <p>Queensland neighbourhood centres, 2025</p>
+          </div>
+          <div class="stat-card">
+            <span class="stat-no">+11.6<span class="stat-unit">%</span></span>
+            <h3>Volunteer growth</h3>
+            <p>Victoria, 2024 to 2025</p>
+          </div>
+        </div>
+      </section>
+      <section class="chapter-guide" aria-labelledby="guide-heading">
+        <div class="guide-title">
+          <span class="section-label">YOUR READING ROUTE</span>
+          <h2 id="guide-heading">Four chapters.<br />One connected story.</h2>
+        </div>
+        <div class="guide-links">
+          <a href="#services"
+            ><b>01</b><span>Everyday services</span><span>↗</span></a
+          ><a href="#geography"
+            ><b>02</b><span>Geographic connections</span><span>↗</span></a
+          ><a href="#participation"
+            ><b>03</b><span>Participation & access</span><span>↗</span></a
+          ><a href="#impact"
+            ><b>04</b><span>Support & volunteers</span><span>↗</span></a
+          >
+        </div>
+      </section>
+      <section
+        class="story-chapter"
+        id="services"
+        aria-labelledby="services-heading"
+      >
+        <div class="chapter-heading">
+          <div class="chapter-marker">
+            CHAPTER <span>01</span> <i></i> Victoria
+          </div>
+          <h2 id="services-heading">Everyday places, essential services</h2>
+          <p>
+            Neighbourhood houses offer more than activities. Begin with the
+            programs and services that bring people through the door.
+          </p>
+        </div>
+        <div class="chapter-charts">
+          <article
+            class="viz-card"
+            id="view-1"
+            aria-labelledby="view-1-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 01</span
+                ><span class="type-label">PROGRAMS / VICTORIA</span>
+              </div>
+              <h3 id="view-1-heading">
+                What do Victorians use neighbourhood houses for?
+              </h3>
+              <p class="viz-description">
+                Explore the mix of programs and activities offered through
+                Victoria’s neighbourhood houses.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart1"
+                role="group"
+                aria-label="Interactive data visualisation: What do Victorians use neighbourhood houses for?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                A starting point: the types of programs available help explain
+                the breadth of local community support.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card reverse"
+            id="view-2"
+            aria-labelledby="view-2-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 02</span
+                ><span class="type-label">CHANGE OVER TIME</span>
+              </div>
+              <h3 id="view-2-heading">
+                How has program use changed since 2024?
+              </h3>
+              <p class="viz-description">
+                Compare how reported program sessions changed from 2024 to 2025.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart2"
+                role="group"
+                aria-label="Interactive data visualisation: How has program use changed since 2024?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Look for the programs with the most substantial changes, not
+                just the largest totals.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card"
+            id="view-3"
+            aria-labelledby="view-3-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 03</span
+                ><span class="type-label">PROGRAM GROWTH</span>
+              </div>
+              <h3 id="view-3-heading">
+                Which programs are growing — and shrinking?
+              </h3>
+              <p class="viz-description">
+                A closer look at the programs gaining or losing sessions in
+                Victoria.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart3"
+                role="group"
+                aria-label="Interactive data visualisation: Which programs are growing — and shrinking?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Growth is uneven across program categories: the overall picture
+                hides different local priorities.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card reverse"
+            id="view-4"
+            aria-labelledby="view-4-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 04</span
+                ><span class="type-label">COMMUNITY SERVICES</span>
+              </div>
+              <h3 id="view-4-heading">
+                Beyond programs: what services do houses provide?
+              </h3>
+              <p class="viz-description">
+                Explore the range of services offered by Victorian neighbourhood
+                houses.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart4"
+                role="group"
+                aria-label="Interactive data visualisation: Beyond programs: what services do houses provide?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                These places do more than run activities; they connect people
+                with practical services and support.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+        </div>
+      </section>
+      <section
+        class="story-chapter"
+        id="geography"
+        aria-labelledby="geography-heading"
+      >
+        <div class="chapter-heading">
+          <div class="chapter-marker">
+            CHAPTER <span>02</span> <i></i> Queensland & selected states
+          </div>
+          <h2 id="geography-heading">Where community happens</h2>
+          <p>
+            Maps locate centres and compare provision across places. Each map
+            answers a different geographic question.
+          </p>
+        </div>
+        <div class="chapter-charts">
+          <article
+            class="viz-card is-map"
+            id="view-5"
+            aria-labelledby="view-5-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 05</span
+                ><span class="type-label">CENTRE LOCATIONS</span>
+              </div>
+              <h3 id="view-5-heading">
+                Where are Queensland’s neighbourhood centres?
+              </h3>
+              <p class="viz-description">
+                Explore 130 recorded centre locations from Queensland’s 2019
+                government dataset.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart5"
+                role="group"
+                aria-label="Interactive data visualisation: Where are Queensland’s neighbourhood centres?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Recorded centres cluster along the eastern coast, especially in
+                southeast Queensland. This does not measure access per resident.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card reverse is-map"
+            id="view-7"
+            aria-labelledby="view-7-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 07</span
+                ><span class="type-label">STATE COMPARISON</span>
+              </div>
+              <h3 id="view-7-heading">How does availability vary by state?</h3>
+              <p class="viz-description">
+                Funded neighbourhood centres per 100,000 residents, across five
+                states in 2025.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart7"
+                role="group"
+                aria-label="Interactive data visualisation: How does availability vary by state?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Tasmania has the highest rate among the five reported states;
+                Queensland the lowest. Markers are state-capital anchors, not
+                centre locations.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card is-map"
+            id="view-8"
+            aria-labelledby="view-8-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 08</span
+                ><span class="type-label">DENSITY HEATMAP</span>
+              </div>
+              <h3 id="view-8-heading">
+                Where are Queensland’s centre hotspots?
+              </h3>
+              <p class="viz-description">
+                A smoothed geographic density surface based on the 130 centre
+                locations recorded in 2019.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart8"
+                role="group"
+                aria-label="Interactive data visualisation: Where are Queensland’s centre hotspots?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Warmer areas indicate more nearby recorded centres. The density
+                index is relative, not a measure of population-adjusted access.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+        </div>
+      </section>
+      <section
+        class="story-chapter"
+        id="participation"
+        aria-labelledby="participation-heading"
+      >
+        <div class="chapter-heading">
+          <div class="chapter-marker">
+            CHAPTER <span>03</span> <i></i> Queensland
+          </div>
+          <h2 id="participation-heading">Participation & digital access</h2>
+          <p>
+            The next chapter moves from where centres are to how they are used,
+            and who benefits from their services.
+          </p>
+        </div>
+        <div class="chapter-charts">
+          <article
+            class="viz-card"
+            id="view-6"
+            aria-labelledby="view-6-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 06</span
+                ><span class="type-label">PARTICIPATION TREND</span>
+              </div>
+              <h3 id="view-6-heading">
+                How has participation changed over time?
+              </h3>
+              <p class="viz-description">
+                Weekly attendance, programmed activities and service referrals
+                in Queensland, 2019–2025.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart6"
+                role="group"
+                aria-label="Interactive data visualisation: How has participation changed over time?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Weekly attendance rose from 35,245 in 2019 to 53,230 in 2025.
+                There is no reported 2020 observation.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card reverse"
+            id="view-10"
+            aria-labelledby="view-10-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 10</span
+                ><span class="type-label">DIGITAL INCLUSION</span>
+              </div>
+              <h3 id="view-10-heading">
+                Which digital services are most common?
+              </h3>
+              <p class="viz-description">
+                Percentage of Queensland centres offering different digital
+                inclusion opportunities in 2025.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart10"
+                role="group"
+                aria-label="Interactive data visualisation: Which digital services are most common?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Printing and scanning (92%) and Wi-Fi (82%) are far more common
+                than advanced digital skills programs (16%).
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card"
+            id="view-11"
+            aria-labelledby="view-11-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 11</span
+                ><span class="type-label">COMMUNITY TYPE</span>
+              </div>
+              <h3 id="view-11-heading">Who visits centres most often?</h3>
+              <p class="viz-description">
+                Median weekly visitors per centre across Queensland community
+                types in 2025.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart11"
+                role="group"
+                aria-label="Interactive data visualisation: Who visits centres most often?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Metropolitan centres have a median of 320 weekly visitors versus
+                145 in communities under 3,000 people. These are per-centre
+                medians.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+        </div>
+      </section>
+      <section
+        class="story-chapter"
+        id="impact"
+        aria-labelledby="impact-heading"
+      >
+        <div class="chapter-heading">
+          <div class="chapter-marker">
+            CHAPTER <span>04</span> <i></i> Queensland & Victoria
+          </div>
+          <h2 id="impact-heading">Support that extends beyond the centre</h2>
+          <p>
+            Emergency relief and volunteers reveal another side of the
+            community-centre story: practical help and human effort.
+          </p>
+        </div>
+        <div class="chapter-charts">
+          <article
+            class="viz-card"
+            id="view-9"
+            aria-labelledby="view-9-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 09</span
+                ><span class="type-label">EMERGENCY RELIEF</span>
+              </div>
+              <h3 id="view-9-heading">How has emergency relief changed?</h3>
+              <p class="viz-description">
+                Share of Queensland centres offering food and non-food material
+                relief, 2019–2025.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart9"
+                role="group"
+                aria-label="Interactive data visualisation: How has emergency relief changed?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Food relief provision increased from 68% of centres in 2019 to
+                87% in 2025.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+          <article
+            class="viz-card reverse"
+            id="view-12"
+            aria-labelledby="view-12-heading"
+          >
+            <div class="viz-main">
+              <div class="viz-topline">
+                <span class="chart-index">FIG. 12</span
+                ><span class="type-label">VOLUNTEERING</span>
+              </div>
+              <h3 id="view-12-heading">How have volunteers contributed?</h3>
+              <p class="viz-description">
+                Victoria’s volunteering totals and weekly hours, indexed to a
+                2024 baseline of 100.
+              </p>
+              <div
+                class="chart-canvas"
+                id="chart12"
+                role="group"
+                aria-label="Interactive data visualisation: How have volunteers contributed?"
+              >
+                <div class="loading">Loading interactive chart…</div>
+              </div>
+              <div class="chart-foot">
+                <span>Hover over marks to explore values</span
+                ><a href="#sources">Data notes ↓</a>
+              </div>
+            </div>
+            <aside class="insight-panel">
+              <span class="eyebrow">WHAT TO NOTICE</span>
+              <p>
+                Volunteer numbers increased 11.6% and weekly volunteer hours
+                increased 9.0% between 2024 and 2025.
+              </p>
+              <span class="insight-mark" aria-hidden="true">↗</span>
+            </aside>
+          </article>
+        </div>
+      </section>
+      <section class="takeaways" id="takeaways">
+        <div class="section-label light-label">THE TAKEAWAYS</div>
+        <h2>What the data<br /><em>tells us.</em></h2>
+        <div class="takeaway-grid">
+          <div>
+            <span>01 / PLACES</span>
+            <h3>Centres connect communities geographically.</h3>
+            <p>
+              The 2019 Queensland location records cluster along the east coast.
+              This says where centres are recorded—not how easily each community
+              can reach them.
+            </p>
+          </div>
+          <div>
+            <span>02 / PARTICIPATION</span>
+            <h3>More people are engaging with centres.</h3>
+            <p>
+              Reported Queensland weekly centre attendance grew by about 51%
+              between 2019 and 2025.
+            </p>
+          </div>
+          <div>
+            <span>03 / SUPPORT</span>
+            <h3>Practical support is a central part of the story.</h3>
+            <p>
+              In Queensland, the proportion of centres offering food relief rose
+              from 68% to 87% between 2019 and 2025.
+            </p>
+          </div>
+        </div>
+        <a href="#top" class="takeaway-link">Return to the beginning ↑</a>
+      </section>
+      <section class="sources" id="sources">
+        <div class="sources-heading">
+          <div>
+            <span class="section-label">METHOD & SOURCES</span>
+            <h2>Read the data responsibly.</h2>
+          </div>
+          <p>
+            Maps and comparisons are intended to highlight patterns, not to
+            imply that all centres, states or years were measured in the same
+            way.
+          </p>
+        </div>
+        <div class="notes-grid">
+          <div>
+            <h3>About the sources</h3>
+            <p>
+              Charts use the CSV files supplied with this project, drawing on
+              Neighbourhood Centres Queensland’s 2025 Sector Impact Report,
+              Neighbourhood Houses Victoria reporting, and the Queensland
+              Government’s neighbourhood-centre location directory.
+            </p>
+          </div>
+          <div>
+            <h3>Important distinctions</h3>
+            <p>
+              Queensland centre locations are from 2019. State-level funding
+              rates cover five reported states only. Density surfaces are
+              smoothed, relative estimates; grey or absent states should not be
+              read as zero.
+            </p>
+          </div>
+          <div>
+            <h3>Explore the charts</h3>
+            <p>
+              Hover for tooltips; use chapter navigation to jump between themes.
+              Some charts have their own selections and legends. Charts load
+              data from this project’s local <code>data/</code> folder.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-brand">the community <strong>atlas.</strong></div>
+      <p>Community Centres in Australia · FIT3179 Data Visualisation 2</p>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+    <button
+      id="back-to-top"
+      class="back-to-top"
+      type="button"
+      aria-label="Back to top"
+    >
+      ↑
+    </button>
   </body>
 </html>
