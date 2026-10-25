@@ -2,13 +2,13 @@
 const chartIds = [1, 2, 3, 4, 5, 7, 8, 6, 10, 11, 9, 12];
 const chartOptions = { actions: { export: true, source: false, compiled: false, editor: false }, renderer: 'svg' };
 const ready = () => {
-  // Charts 2 and 3 have long category labels. Size their plotting area to the
+  // Charts 2, 3, 6 and 12 need a plot width that accounts for labels. Size to the
   // available card width so they never need an inner horizontal scrollbar.
   chartIds.forEach(async (id) => {
     const target = document.getElementById(`chart${id}`);
     if (!target) return;
     try {
-      if (id === 2 || id === 3) {
+      if ([2, 3, 6, 11, 12].includes(id)) {
         const response = await fetch(`js/chart${id}.json`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const spec = await response.json();
@@ -25,9 +25,23 @@ const ready = () => {
             - parseFloat(panelStyle.paddingRight);
           // Reserve space for the y-axis category names, the axis ticks and
           // labels, and the Vega view padding. Width is the PLOT width.
-          const labelBudget = Math.min(185, Math.max(105, Math.round(panelInnerWidth * 0.22)));
-          const plotWidth = Math.max(170, Math.floor(Math.min(id === 2 ? 700 : 700,
-            panelInnerWidth - labelBudget - 40)));
+          // Figure 6 has a numeric y-axis and bottom legend. Figure 12 has
+          // long category labels plus change-percent labels to the right.
+
+          const labelBudget =
+            id === 6 ? 105 :
+              id === 11 ? 270 :
+                id === 12 ? 265 :
+                  Math.min(
+                    185,
+                    Math.max(105, Math.round(panelInnerWidth * 0.22))
+                  );
+          const preferredWidth =
+            id === 6 ? 740 :
+              id === 11 ? 680 :
+                id === 12 ? 680 : 700;
+          const plotWidth = Math.max(100, Math.floor(Math.min(preferredWidth,
+            panelInnerWidth - labelBudget - 35)));
           if (Math.abs(plotWidth - lastWidth) < 3) return;
           lastWidth = plotWidth;
           const layers = spec.layer?.map(layer => {

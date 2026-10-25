@@ -106,7 +106,27 @@
         "color": {
           "field": "year_label",
           "type": "nominal",
-          "title": "Year"
+          "title": null,
+          "scale": {
+            "domain": [
+              "2024",
+              "2025"
+            ],
+            "range": [
+              "#397DAE",
+              "#F49A58"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 2,
+            "symbolType": "circle",
+            "symbolSize": 140,
+            "labelFontSize": 12,
+            "labelColor": "#263238",
+            "offset": 12
+          }
         },
         "tooltip": [
           {

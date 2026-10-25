@@ -1067,3 +1067,53 @@ button {
   display: block;
   max-width: 100%;
 }
+
+/* Figures 6 and 12 use measured plotting widths in site.js. The
+   SVG, including axes and text labels, fits within its chart panel. */
+#chart6,
+#chart12 {
+  width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+#chart6 .vega-embed,
+#chart12 .vega-embed {
+  display: block;
+  max-width: 100%;
+}
+
+/* Figure 11: Responsive chart without horizontal scrolling */
+
+#chart11 {
+  width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+#chart11 .vega-embed {
+  display: block;
+  max-width: 100%;
+}
+
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.source-list a {
+  color: #2b8077;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.5;
+  border-bottom: 1px solid #dce7e1;
+  padding-bottom: 12px;
+  transition: color 0.2s ease;
+}
+
+.source-list a:hover {
+  color: #163e3c;
+  text-decoration: underline;
+}
