@@ -512,12 +512,16 @@ button {
   font-size: clamp(37px, 4.4vw, 62px);
   margin: 21px auto;
 }
+
 .chapter-heading p {
   color: var(--sub);
-  max-width: 650px;
-  margin: auto;
+  max-width: 48ch;
+  margin: 0 auto;
   font-size: 16px;
+  line-height: 1.8;
+  text-wrap: balance;
 }
+
 .chapter-charts {
   display: flex;
   flex-direction: column;
@@ -1099,7 +1103,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .source-list a {
