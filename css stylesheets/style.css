@@ -1044,3 +1044,26 @@ button {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* Charts 2 and 3: the Vega plot is resized in site.js rather than scrolled. */
+#chart2,
+#chart3 {
+  overflow-x: hidden;
+}
+#chart2 .vega-embed,
+#chart3 .vega-embed {
+  max-width: 100%;
+}
+
+/* Charts 2/3: fill the available chart area; resize from .viz-main, not here. */
+#chart2,
+#chart3 {
+  width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+#chart2 .vega-embed,
+#chart3 .vega-embed {
+  display: block;
+  max-width: 100%;
+}

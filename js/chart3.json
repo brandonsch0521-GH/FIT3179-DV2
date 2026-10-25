@@ -1,95 +1,106 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
-  "height": 420,
+  "description": "Diverging bar chart showing change in program sessions from 2024 to 2025 in Victoria.",
+  "width": 650,
+  "height": 540,
   "data": {
     "url": "data/victoria_program_sessions_2024_2025.csv"
   },
   "transform": [
     {
-      "window": [
-        {
-          "op": "rank",
-          "as": "rank"
-        }
-      ],
-      "sort": [
-        {
-          "field": "sessions_2025",
-          "order": "descending"
-        }
-      ]
-    },
-    {
-      "filter": "datum.rank <= 15"
-    },
-    {
       "calculate": "datum.change_percent_2024_to_2025 >= 0 ? 'Growing' : 'Shrinking'",
-      "as": "direction"
+      "as": "change_direction"
+    },
+    {
+      "calculate": "length(datum.program_type) > 32 ? substring(datum.program_type, 0, 32) + '…' : datum.program_type",
+      "as": "program_label"
     }
   ],
-  "layer": [
-    {
-      "mark": "bar",
-      "encoding": {
-        "y": {
-          "field": "program_type",
-          "type": "nominal",
-          "sort": {
-            "field": "change_percent_2024_to_2025",
-            "order": "descending"
-          },
-          "title": null
-        },
-        "x": {
-          "field": "change_percent_2024_to_2025",
-          "type": "quantitative",
-          "title": "Change from 2024 to 2025 (%)"
-        },
-        "color": {
-          "field": "direction",
-          "type": "nominal",
-          "title": "Change",
-          "legend": {
-            "orient": "top"
-          }
-        },
-        "tooltip": [
-          {
-            "field": "program_type",
-            "type": "nominal",
-            "title": "Program"
-          },
-          {
-            "field": "sessions_2024",
-            "type": "quantitative",
-            "title": "Sessions in 2024"
-          },
-          {
-            "field": "sessions_2025",
-            "type": "quantitative",
-            "title": "Sessions in 2025"
-          },
-          {
-            "field": "change_percent_2024_to_2025",
-            "type": "quantitative",
-            "title": "Change (%)",
-            "format": ".1f"
-          }
-        ]
+  "mark": {
+    "type": "bar"
+  },
+  "encoding": {
+    "y": {
+      "field": "program_label",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null,
+      "axis": {
+        "labelFontSize": 12,
+        "labelLimit": 185
       }
     },
-    {
-      "mark": {
-        "type": "rule",
-        "color": "#333333",
-        "strokeWidth": 1.5
+    "x": {
+      "field": "change_percent_2024_to_2025",
+      "type": "quantitative",
+      "title": "Change from 2024 to 2025 (%)",
+      "scale": {
+        "domain": [
+          -70,
+          35
+        ]
       },
-      "encoding": {
-        "x": {
-          "datum": 0
-        }
+      "axis": {
+        "tickCount": 8,
+        "grid": true
       }
+    },
+    "color": {
+      "field": "change_direction",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Growing",
+          "Shrinking"
+        ],
+        "range": [
+          "#4C78A8",
+          "#F58518"
+        ]
+      },
+      "legend": {
+        "title": "Change",
+        "orient": "top"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "program_type",
+        "type": "nominal",
+        "title": "Program"
+      },
+      {
+        "field": "sessions_2024",
+        "type": "quantitative",
+        "title": "Sessions in 2024",
+        "format": ","
+      },
+      {
+        "field": "sessions_2025",
+        "type": "quantitative",
+        "title": "Sessions in 2025",
+        "format": ","
+      },
+      {
+        "field": "change_percent_2024_to_2025",
+        "type": "quantitative",
+        "title": "Change (%)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#263238",
+      "titleColor": "#263238",
+      "gridColor": "#d9d9d9"
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12
     }
-  ]
+  }
 }

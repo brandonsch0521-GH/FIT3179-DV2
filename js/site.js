@@ -2,11 +2,81 @@
 const chartIds = [1, 2, 3, 4, 5, 7, 8, 6, 10, 11, 9, 12];
 const chartOptions = { actions: { export: true, source: false, compiled: false, editor: false }, renderer: 'svg' };
 const ready = () => {
+  // Charts 2 and 3 have long category labels. Size their plotting area to the
+  // available card width so they never need an inner horizontal scrollbar.
   chartIds.forEach(async (id) => {
     const target = document.getElementById(`chart${id}`);
     if (!target) return;
-    try { await vegaEmbed(target, `js/chart${id}.json`, chartOptions); }
-    catch (error) { console.error(`Chart ${id} failed:`, error); target.innerHTML = `<div class="error-msg">Chart ${id} could not load. Check the browser console and data filename.</div>`; }
+    try {
+      if (id === 2 || id === 3) {
+        const response = await fetch(`js/chart${id}.json`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const spec = await response.json();
+        // Measure the PARENT content box, not the chart itself: observing the
+        // chart being replaced by vegaEmbed caused a resize feedback loop.
+        const panel = target.closest('.viz-main');
+        let lastWidth = -1;
+        let raf = null;
+        let rendering = Promise.resolve();
+        const redraw = () => {
+          const panelStyle = getComputedStyle(panel);
+          const panelInnerWidth = panel.clientWidth
+            - parseFloat(panelStyle.paddingLeft)
+            - parseFloat(panelStyle.paddingRight);
+          // Reserve space for the y-axis category names, the axis ticks and
+          // labels, and the Vega view padding. Width is the PLOT width.
+          const labelBudget = Math.min(185, Math.max(105, Math.round(panelInnerWidth * 0.22)));
+          const plotWidth = Math.max(170, Math.floor(Math.min(id === 2 ? 700 : 700,
+            panelInnerWidth - labelBudget - 40)));
+          if (Math.abs(plotWidth - lastWidth) < 3) return;
+          lastWidth = plotWidth;
+          const layers = spec.layer?.map(layer => {
+            const y = layer.encoding?.y;
+            if (!y?.field) return layer;
+            return {
+              ...layer, encoding: {
+                ...layer.encoding,
+                y: { ...y, axis: { ...y.axis, labelLimit: labelBudget } }
+              }
+            };
+          });
+          const adjustedSpec = {
+            ...spec,
+            width: plotWidth,
+            // Fit-x recalculates inner dimensions while using the chart as
+            // a measuring target. Use explicit plotting width instead.
+            autosize: { type: 'pad', contains: 'padding' },
+            ...(layers ? { layer: layers } : {}),
+            ...(id === 3 ? {
+              encoding: {
+                ...spec.encoding,
+                y: {
+                  ...spec.encoding.y, axis: {
+                    ...spec.encoding.y.axis, labelLimit: labelBudget
+                  }
+                }
+              }
+            } : {})
+          };
+          rendering = rendering.catch(() => { }).then(() => vegaEmbed(target, adjustedSpec, chartOptions))
+            .catch(error => {
+              console.error(`Chart ${id} resize failed:`, error);
+              target.textContent = `Chart ${id} could not load. Check the browser console.`;
+            });
+        };
+        redraw();
+        const observer = new ResizeObserver(() => {
+          if (raf !== null) cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => { raf = null; redraw(); });
+        });
+        observer.observe(panel);
+      } else {
+        await vegaEmbed(target, `js/chart${id}.json`, chartOptions);
+      }
+    } catch (error) {
+      console.error(`Chart ${id} failed:`, error);
+      target.innerHTML = `<div class="error-msg">Chart ${id} could not load. Check the browser console and data filename.</div>`;
+    }
   });
   const nav = document.getElementById('main-nav');
   const menu = document.getElementById('menu-toggle');
