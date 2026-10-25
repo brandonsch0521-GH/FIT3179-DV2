@@ -188,11 +188,14 @@ button {
   box-shadow: 0 0 0 5px rgba(240, 183, 125, 0.14);
 }
 .hero h1 {
+  font-family: "DM Serif Display", Georgia, serif;
   font-size: clamp(54px, 7vw, 103px);
-  letter-spacing: -0.075em;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
   margin: 24px 0 24px;
-  font-weight: 800;
 }
+
 .hero h1 em {
   font-style: normal;
   color: #e9b483;
@@ -508,8 +511,13 @@ button {
   vertical-align: middle;
   margin: 0 9px;
 }
+
 .chapter-heading h2 {
+  font-family: "DM Serif Display", Georgia, serif;
   font-size: clamp(37px, 4.4vw, 62px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
   margin: 21px auto;
 }
 
@@ -1120,4 +1128,16 @@ button {
 .source-list a:hover {
   color: #163e3c;
   text-decoration: underline;
+}
+
+/* Serif typography for major storytelling headings */
+
+.overview-heading h2,
+.guide-title h2,
+.takeaways h2,
+.sources-heading h2 {
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
 }
