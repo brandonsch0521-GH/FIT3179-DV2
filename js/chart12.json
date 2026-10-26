@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Indexed dumbbell comparison of total volunteering in Victorian neighbourhood houses, 2024\u20132025. 2024 is set to 100 separately for each metric.",
+  "description": "Indexed dumbbell comparison of total volunteering in Victorian neighbourhood houses, 2024–2025. 2024 is set to 100 separately for each metric.",
   "width": 680,
   "height": 170,
   "data": {
@@ -17,7 +17,7 @@
   },
   "transform": [
     {
-      "calculate": "datum.measure == \"Total number of volunteers\" ? \"Total volunteers\" : \"Volunteer hours per week\"",
+      "calculate": "datum.measure == 'Total number of volunteers' ? 'Total volunteers' : 'Volunteer hours per week'",
       "as": "metric"
     },
     {
@@ -33,7 +33,7 @@
       "as": "change_pct"
     },
     {
-      "calculate": "format(datum.change_pct, \"+.1f\") + \"%\"",
+      "calculate": "format(datum.change_pct, '+.1f') + '%'",
       "as": "change_label"
     }
   ],
@@ -112,34 +112,57 @@
       }
     },
     {
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 180,
-        "color": "#7c8997",
-        "stroke": "white",
-        "strokeWidth": 1.2
-      },
-      "encoding": {
-        "x": {
-          "field": "index_2024",
-          "type": "quantitative"
+      "transform": [
+        {
+          "fold": [
+            "index_2024",
+            "index_2025"
+          ],
+          "as": [
+            "year_key",
+            "index_value"
+          ]
+        },
+        {
+          "calculate": "datum.year_key == 'index_2024' ? '2024' : '2025'",
+          "as": "year"
         }
-      }
-    },
-    {
+      ],
       "mark": {
         "type": "point",
         "filled": true,
-        "size": 200,
-        "color": "#246f9c",
+        "size": 190,
         "stroke": "white",
         "strokeWidth": 1.2
       },
       "encoding": {
         "x": {
-          "field": "index_2025",
+          "field": "index_value",
           "type": "quantitative"
+        },
+        "color": {
+          "field": "year",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "2024",
+              "2025"
+            ],
+            "range": [
+              "#7c8997",
+              "#246f9c"
+            ]
+          },
+          "legend": {
+            "title": "Year",
+            "orient": "top",
+            "direction": "horizontal",
+            "symbolType": "circle",
+            "symbolSize": 140,
+            "labelFontSize": 12,
+            "labelColor": "#263238",
+            "offset": 12
+          }
         }
       }
     },
