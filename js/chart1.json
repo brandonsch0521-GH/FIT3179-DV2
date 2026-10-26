@@ -7,6 +7,10 @@
   },
   "transform": [
     {
+      "calculate": "toNumber(datum.sessions_2025)",
+      "as": "sessions_numeric"
+    },
+    {
       "window": [
         {
           "op": "rank",
@@ -15,7 +19,7 @@
       ],
       "sort": [
         {
-          "field": "sessions_2025",
+          "field": "sessions_numeric",
           "order": "descending"
         }
       ]
@@ -36,6 +40,13 @@
       "field": "sessions_2025",
       "type": "quantitative",
       "title": "Number of Sessions in 2025"
+    },
+    "color": {
+      "condition": {
+        "test": "datum.rank <= 2",
+        "value": "#4E79A7"
+      },
+      "value": "#D5D9DD"
     },
     "tooltip": [
       {
